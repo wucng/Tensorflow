@@ -60,9 +60,11 @@ def main(_):
         tf.compat.as_bytes(str(FLAGS.model_version)))
     print('Exporting trained model to', export_path)
     builder = tf.saved_model.builder.SavedModelBuilder(export_path)
-
+    
+    y=tf.argmax(y, 1)
     tensor_info_x = tf.saved_model.utils.build_tensor_info(x)
     tensor_info_y = tf.saved_model.utils.build_tensor_info(y)
+ 
 
     prediction_signature = (
         tf.saved_model.signature_def_utils.build_signature_def(
