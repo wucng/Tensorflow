@@ -30,7 +30,7 @@ def main(_):
     # ms_loss = tf.reduce_mean((y - y_)**2)
     ms_loss=tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_,logits=y))
 
-    train_step = tf.train.GradientDescentOptimizer(0.001).minimize(ms_loss)
+    train_step = tf.train.GradientDescentOptimizer(0.5).minimize(ms_loss)
 
     correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, 'float'))
@@ -60,11 +60,11 @@ def main(_):
         tf.compat.as_bytes(str(FLAGS.model_version)))
     print('Exporting trained model to', export_path)
     builder = tf.saved_model.builder.SavedModelBuilder(export_path)
-    
-    y=tf.argmax(y, 1)
+
+    y1=tf.argmax(y,1)
     tensor_info_x = tf.saved_model.utils.build_tensor_info(x)
-    tensor_info_y = tf.saved_model.utils.build_tensor_info(y)
- 
+    tensor_info_y = tf.saved_model.utils.build_tensor_info(y1)
+    # tensor_info_y = tf.saved_model.utils.build_tensor_info(y)
 
     prediction_signature = (
         tf.saved_model.signature_def_utils.build_signature_def(
