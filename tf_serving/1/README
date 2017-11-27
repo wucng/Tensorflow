@@ -13,7 +13,7 @@ vim client.py
 
 # Train And Export TensorFlow Model
 
-```
+```python
 # cd /home/wu/Downloads/serving
 # bazel build -c opt ///home/wu/pytest/test:export_model
 cd ~pytest/test
@@ -21,7 +21,7 @@ python export_model.py --work_dir=../model
 ```
 # Load Exported Model With Standard TensorFlow ModelServer
 
-```
+```python
 cd ~/serving
 bazel build -c opt //tensorflow_serving/model_servers:tensorflow_model_server
 
@@ -29,7 +29,7 @@ bazel-bin/tensorflow_serving/model_servers/tensorflow_model_server --port=9000 -
 ```
 # Test The Server
 
-```
+```python
 cd ~/serving
 bazel build -c opt /home/wu/pytest/test:client
 
