@@ -63,7 +63,8 @@ def main(_):
       return
 
   result, label, waiting = do_inference(FLAGS.server)
-  print('Result is: ', result)
+  # print('Result is: ', result)
+  print('Result is: ', numpy.array(result))
   print('Actual label is: ', label)
   print('Waiting time is: ', waiting, 'microseconds.')
 
