@@ -15,6 +15,12 @@ perform forward computation and gradient calculation in parallel, which
 should lead to increased training speed for the simple model.
 
 参考： https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/dist_test/python/mnist_replica.py
+
+执行方法：
+python3 mnist_replica.py --ps_hosts=192.168.146.137:2222 --worker_hosts=192.168.146.133:2223,192.168.146.136:2224 --job_name="ps" --task_index=0
+python3 mnist_replica.py --ps_hosts=192.168.146.137:2222 --worker_hosts=192.168.146.133:2223,192.168.146.136:2224 --job_name="worker" --task_index=0
+python3 mnist_replica.py --ps_hosts=192.168.146.137:2222 --worker_hosts=192.168.146.133:2223,192.168.146.136:2224 --job_name="worker" --task_index=1
+
 """
 
 
