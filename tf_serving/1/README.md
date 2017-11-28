@@ -1,4 +1,10 @@
-参考：https://github.com/aaxwaz/Serving-TensorFlow-Model
+参考：
+
+1、https://github.com/aaxwaz/Serving-TensorFlow-Model
+
+2、https://github.com/movchan74/tensorflow_serving_examples
+
+3、https://github.com/zacpang/tensorflow_serving_mnist_example
 
 步骤：
 
