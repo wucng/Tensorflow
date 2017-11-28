@@ -64,7 +64,10 @@ def main(_):
 
   result, label, waiting = do_inference(FLAGS.server)
   # print('Result is: ', result)
-  print('Result is: ', numpy.array(result))
+  prediction = numpy.array(result.outputs['output'].int64_val)
+  print(prediction)
+  print(type(prediction)) # <type 'numpy.ndarray'>
+  
   print('Actual label is: ', label)
   print('Waiting time is: ', waiting, 'microseconds.')
 
