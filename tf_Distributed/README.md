@@ -1,4 +1,8 @@
-参考：https://tensorflow.google.cn/deploy/distributed
+参考：
+
+1、https://tensorflow.google.cn/deploy/distributed
+
+2、https://github.com/tensorflow/tensorflow/tree/master/tensorflow/tools/dist_test
 
 
 ----------
