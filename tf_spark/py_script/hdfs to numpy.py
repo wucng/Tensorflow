@@ -5,6 +5,8 @@
 mnist 转成 hdfs  参考：https://github.com/fengzhongyouxia/Tensorflow/blob/master/tf_spark/README.md
 
 hdfs 转 numpy 参考：http://blog.csdn.net/wc781708249/article/details/78251701#t3
+
+tensorflow 读取hdfs https://github.com/fengzhongyouxia/Tensorflow/blob/master/tf_Distributed/Read_HDFS.md
 """
 
 
