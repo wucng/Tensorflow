@@ -19,7 +19,7 @@ index=["part-00000","part-00001","part-00002","part-00003","part-00004","part-00
 mode=["train","test"]
 img_label=["images","labels"]
 
-dirPath='hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/mnist/pickle/' # 注该数据为pickle格式
+dirPath='hdfs://xxx:8020/user/root/mnist/pickle/' # 注该数据为pickle格式
 
 # 解析路径
 train_img_paths=[]
