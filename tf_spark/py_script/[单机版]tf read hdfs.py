@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
+-----------单机版-------------------
 tf读取hdfs上的数据（只支持读取.csv与.tfrecord格式数据）
 hdfs dfs -put titanic_dataset.csv mnist  # 将数据上传到hdfs上
 
