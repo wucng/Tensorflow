@@ -4,13 +4,10 @@
 """ 集群版 从gtdata上解析数据（使用gdal读取图片数据）
 # 上传 mnist_name.txt到hdfs
 mnist_name.txt生成参考： 解析本地mnist图片文件名.py
-
 zip -r mnist.zip mnist_name.txt 
 hdfs dfs -mkdir mnist
 hdfs dfs -put mnist.zip mnist # 上传到hdfs上的mnist文件夹下
-
 或者 将mnist_name.txt拷至本地，在本地上读取，如果是集群 必须每台机器都的复制
-
 执行命令：
 spark-submit
 --queue default \
@@ -21,12 +18,10 @@ spark-submit
 --conf spark.yarn.maxAppAttempts=1 \
 --archives hdfs://xxx:8020/user/root/mnist/mnist.zip#mnist \
 xxx.py 
-
 集群命令：
 python mnist_dist.py --ps_hosts=10.0.100.25:2220 --worker_hosts=10.0.100.14:2221,10.0.100.15:2222 --job_name="ps" --task_index=0
 python mnist_dist.py --ps_hosts=10.0.100.25:2220 --worker_hosts=10.0.100.14:2221,10.0.100.15:2222 --job_name="worker" --task_index=0
 python mnist_dist.py --ps_hosts=10.0.100.25:2220 --worker_hosts=10.0.100.14:2221,10.0.100.15:2222 --job_name="worker" --task_index=1
-
 或
 spark-submit mnist_dist.py --ps_hosts=10.0.100.25:2220 --worker_hosts=10.0.100.14:2221,10.0.100.15:2222 --job_name="ps" --task_index=0
 spark-submit mnist_dist.py --ps_hosts=10.0.100.25:2220 --worker_hosts=10.0.100.14:2221,10.0.100.15:2222 --job_name="worker" --task_index=0
@@ -88,9 +83,10 @@ def Multiband2Array(path):
             data=np.append(data,dataraster.reshape((ycount,xcount,1)),axis=2)
 
     return data
-
+print(data.shape)
+np.random.shuffle(file_name)
 # 从gtdata上解析数据
-for i,img_path in enumerate(file_name):
+for i,img_path in enumerate(file_name[:200]):
    img_path = DelLastChar(img_path)
    labels=img_path.split('/')[-2]  # 解析标签 （单列标签 非one_hot标签）
    imgs=Multiband2Array(img_path) # 解析图像数据
@@ -180,7 +176,7 @@ def main(_):
             # y_ = tf.placeholder(tf.float32, [None,10])
             y_ = tf.placeholder(tf.float32, [None, ]) # 使用非one_hot标签
             # cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y, labels=y_))
-            cross_entropy = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=y, labels=y_)) # 使用非one_hot标签
+            cross_entropy = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=y, labels=tf.to_int64(y_))) # 使用非one_hot标签
 
             global_step = tf.Variable(0, name='global_step', trainable=False)
 
@@ -219,7 +215,7 @@ def main(_):
         while not sv.should_stop() and step < 2000:
             # batch_xs, batch_ys = mnist.train.next_batch(100)
             batch_xs, batch_ys = next_batch(train_data, 100)
-            _, step = sess.run([train_op, global_step], feed_dict={x: batch_xs, y_: batch_ys})
+            _, step = sess.run([train_op, global_step], feed_dict={x: batch_xs, y_: batch_ys.flatten()})
             # print("Step %d in task %d" % (step, FLAGS.task_index))
             if step % 100 == 0:
                 print("accuracy: %f" % sess.run(accuracy, feed_dict={x: test_data[:,:-1],
