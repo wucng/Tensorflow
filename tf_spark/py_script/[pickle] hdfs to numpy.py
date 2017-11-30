@@ -58,10 +58,10 @@ test_label_paths=[]
 [test_label_paths.append(dirPath+mode[1]+'/'+img_label[1]+'/'+i) for i in index]
 
 sc = SparkContext(conf=SparkConf().setAppName("The first example"))
-# textFiles=sc.textFile(dirPath) # 读取 txt，csv 格式数据
+# textFiles=sc.textFile(dirPath) # 读取 txt，csv 格式数据 也可以读取本地数据
 def get_data(paths):
     for i,train_img_path in enumerate(paths):
-        textFiles=sc.pickleFile(train_img_path) # 读取pickle数据
+        textFiles=sc.pickleFile(train_img_path) # 读取pickle数据 也可以读取本地数据
         data=textFiles.collect()
         if i==0:
             data1 = np.array(data, np.float32)  # 转成array
