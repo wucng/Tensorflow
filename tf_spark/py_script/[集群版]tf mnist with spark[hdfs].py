@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 """
-结合tf spark （集群版）
+结合tf spark （集群版）（也可以读取本地路径的数据）
 1、先将数据转成hdfs（pickle） 参考：mnist 转成 hdfs
 2、从hdfs上读取pickle数据转成numpy 参考：hdfs 转 numpy
 3、将得到的数据（numpy）在集群上使用tf训练
