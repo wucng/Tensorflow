@@ -3,10 +3,35 @@
 
 """
 mnist 转成 hdfs  参考：https://github.com/fengzhongyouxia/Tensorflow/blob/master/tf_spark/README.md
-
 hdfs 转 numpy 参考：http://blog.csdn.net/wc781708249/article/details/78251701#t3
-
 tensorflow 读取hdfs https://github.com/fengzhongyouxia/Tensorflow/blob/master/tf_Distributed/Read_HDFS.md
+
+执行命令：spark-submit test.py
+
+或
+
+spark-submit \
+--queue default \
+--num-executors 45 \
+--executor-memory 2G \
+--driver-memory 12G \
+--conf spark.dynamicAllocation.enabled=false \
+--conf spark.yarn.maxAppAttempts=1 \
+test.py
+
+或
+
+spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--queue default \
+--num-executors 45 \
+--executor-memory 2G \
+--driver-memory 12G \
+--conf spark.dynamicAllocation.enabled=false \
+--conf spark.yarn.maxAppAttempts=1 \
+test.py
+
 """
 
 
@@ -54,3 +79,10 @@ print(train_x.shape)
 print(train_y.shape)
 print(test_x.shape)
 print(test_y.shape)
+
+'''
+(60000, 784)
+(60000, 10)
+(10000, 784)
+(10000, 10)
+'''
