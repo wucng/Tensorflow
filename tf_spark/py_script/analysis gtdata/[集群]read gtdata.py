@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-""" 集群版 从gtdata上解析数据（使用gdal读取图片数据）
+""" 集群版 从gtdata上解析数据（使用gdal读取图片数据） 使用非 one_hot 标签
 # 上传 mnist_name.txt到hdfs
 mnist_name.txt生成参考： 解析本地mnist图片文件名.py
 zip -r mnist.zip mnist_name.txt 
