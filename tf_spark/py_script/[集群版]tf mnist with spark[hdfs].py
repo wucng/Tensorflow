@@ -19,7 +19,7 @@ spark-submit mnist_dist.py --ps_hosts=10.0.100.25:2220 --worker_hosts=10.0.100.1
 spark-submit mnist_dist.py --ps_hosts=10.0.100.25:2220 --worker_hosts=10.0.100.14:2221,10.0.100.15:2222 --job_name="worker" --task_index=1
 
 
-执行命令：spark-submit test.py
+单机执行命令：spark-submit test.py
 
 或
 
