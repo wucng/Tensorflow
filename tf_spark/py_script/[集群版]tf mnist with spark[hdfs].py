@@ -180,7 +180,8 @@ def main(_):
 
         # Create a "Supervisor", which oversees the training process.
         sv = tf.train.Supervisor(is_chief=(FLAGS.task_index == 0),
-                                 logdir="./opt",
+                                 # logdir="./opt", # 本地路径
+                                 logdir="hdfs://xxx:8020/user/root/mnist_model",  # 换成hdfs路径
                                  init_op=init_op,
                                  summary_op=summary_op,
                                  saver=saver,
