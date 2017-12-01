@@ -19,6 +19,8 @@ spark-submit \
 --archives hdfs://xxx:8020/user/root/mnist/mnist.zip#mnist \
 xxx.py 
 或者
+spark-submit xxx.py
+或者
 python xxx.py
 """
 
