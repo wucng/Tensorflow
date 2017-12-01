@@ -8,7 +8,9 @@
 
 4、由于ps节点不会自动关闭，需强制关闭，必须重新连接下所有机器（如：关闭终端 重新打开终端） 再次执行集群才不会报错
 
-5、将worker：0 节点上的模型参数复制到 ps 节点，才能进行模型再训练
+5、如果模型保存在本地路径，需将worker：0 节点上的模型参数复制到 ps 节点，才能进行模型再训练；如果模型保存在hdfs上，则不需要
+
+参考：[\[集群版\]tf read hdfs.py](https://github.com/fengzhongyouxia/Tensorflow/blob/master/tf_spark/py_script/%5B%E9%9B%86%E7%BE%A4%E7%89%88%5Dtf%20read%20hdfs.py)
 
 
 
