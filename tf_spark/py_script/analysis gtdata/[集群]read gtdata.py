@@ -7,7 +7,9 @@ mnist_name.txt生成参考： 解析本地mnist图片文件名.py
 zip -r mnist.zip mnist_name.txt 
 hdfs dfs -mkdir mnist
 hdfs dfs -put mnist.zip mnist # 上传到hdfs上的mnist文件夹下
+
 或者 将mnist_name.txt拷至本地，在本地上读取，如果是集群 必须每台机器都的复制
+
 执行命令：
 spark-submit
 --queue default \
@@ -17,7 +19,7 @@ spark-submit
 --conf spark.dynamicAllocation.enabled=false \
 --conf spark.yarn.maxAppAttempts=1 \
 --archives hdfs://xxx:8020/user/root/mnist/mnist.zip#mnist \
-xxx.py 
+xxx.py --ps_hosts= ……
 集群命令：
 python mnist_dist.py --ps_hosts=10.0.100.25:2220 --worker_hosts=10.0.100.14:2221,10.0.100.15:2222 --job_name="ps" --task_index=0
 python mnist_dist.py --ps_hosts=10.0.100.25:2220 --worker_hosts=10.0.100.14:2221,10.0.100.15:2222 --job_name="worker" --task_index=0
