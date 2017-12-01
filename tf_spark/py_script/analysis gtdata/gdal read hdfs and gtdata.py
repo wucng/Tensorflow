@@ -1,5 +1,36 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+"""
+使用gdal 读取 hdfs上的图片，or 读取gtdata上的图片
+
+执行方式：
+Python xxx.py
+
+or
+
+spark-submit xxx.py
+
+or
+
+spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--queue default \
+--num-executors 30 \
+--executor-memory 4G \
+--driver-memory 12G \
+# --py-files TensorFlowOnSpark/tfspark.zip,myfloder/inference/mnist_dist.py \
+--conf spark.dynamicAllocation.enabled=false \
+--conf spark.yarn.maxAppAttempts=1 \
+--conf spark.yarn.executor.memoryOverhead=12288 \
+xxx.py \
+--parm1 \
+--parm2 \
+……
+--parm \
+
+"""
+
 
 try:
   from osgeo import gdal
