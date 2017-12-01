@@ -85,7 +85,7 @@ def Multiband2Array(path):
             data=np.append(data,dataraster.reshape((ycount,xcount,1)),axis=2)
 
     return data
-print(data.shape)
+
 np.random.shuffle(file_name)
 # 从gtdata上解析数据
 for i,img_path in enumerate(file_name[:200]):
@@ -100,6 +100,7 @@ for i,img_path in enumerate(file_name[:200]):
    else:
       data = np.vstack((data, data2))  # 上下合并
 
+print(data.shape)
 # 打乱数据
 np.random.shuffle(data)
 
