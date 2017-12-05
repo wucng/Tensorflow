@@ -1,0 +1,16 @@
+2x2 模型
+
+m1.py 影像-->array
+tool_set.py 可以批量生产任意像素大小的样本文件(.pkl)
+
+filter.py 对推理得到的掩膜图像去噪
+add_GeoInfo.py 去除噪声后，丢失坐标信息，使用该脚本重新加上坐标信息
+
+
+单机版
+single_test.py  可以训练、测试、推理
+
+分布式平台
+mnist_data_setup.py  （可以从hdfs、gtdata提取影像数据或.pkl数据）转成hdfs格式数据（格式可取 csv、pickle）
+mnist_spark.py  从hdfs提取数据发送到个工作节点
+mnist_dist.py 各节点执行脚本

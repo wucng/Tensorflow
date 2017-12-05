@@ -1,0 +1,96 @@
+10x10数据
+不使用全连接层
+
+"""
+数据转换 提交命令：
+读取hdfs上的数据 先需把文件压缩成mnist.zip，再上传到hdfs上
+spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--queue default \
+--num-executors 8 \
+--executor-memory 32G \
+--driver-memory 6G \
+--conf spark.dynamicAllocation.enabled=false \
+--conf spark.yarn.maxAppAttempts=1 \
+--archives hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/test2/mnist.zip#mnist \
+--jars hdfs://dm01-08-01.tjidc.dcos.com:8020/spark-tensorflow/spark-tensorflow-connector-1.0-SNAPSHOT.jar \
+mnist_data_setup.py \
+--imgPixel 10 \
+--channels 3 \
+--output hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/test2/pickle \
+--format pickle
+
+
+读取gtdata 
+spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--queue default \
+--num-executors 8 \
+--executor-memory 32G \
+--driver-memory 6G \
+--conf spark.dynamicAllocation.enabled=false \
+--conf spark.yarn.maxAppAttempts=1 \
+--jars hdfs://dm01-08-01.tjidc.dcos.com:8020/spark-tensorflow/spark-tensorflow-connector-1.0-SNAPSHOT.jar \
+mnist_data_setup.py \
+--imgPixel 10 \
+--channels 3 \
+--output hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/pickle \
+--format pickle
+"""
+--------------------------------------------------------------------------------------
+
+训练：
+hdfs dfs -rmr model_arable
+hdfs dfs -mkdir model_arable
+
+spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--queue default \
+--num-executors 8 \
+--executor-memory 32G \
+--driver-memory 6G \
+--py-files TensorFlowOnSpark/tfspark.zip,myfloder/Arable/mnist_dist.py \
+--conf spark.dynamicAllocation.enabled=false \
+--conf spark.yarn.maxAppAttempts=1 \
+--conf spark.yarn.executor.memoryOverhead=12288 \
+myfloder/Arable/mnist_spark.py  \
+--images hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/data/pickle/train1/images \
+--labels hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/data/pickle/train1/labels \
+--format pickle \
+--mode train \
+--model hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/model_arable \
+--epochs 1 \
+--steps 100 \
+--acc 0.7 \
+--dropout 0.5 \
+--learning_rate 1e-6 \
+--model_name model.ckpt 
+--------------------------------------------------------------------------------------
+再训练：
+spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--queue default \
+--num-executors 8 \
+--executor-memory 32G \
+--driver-memory 6G \
+--py-files TensorFlowOnSpark/tfspark.zip,myfloder/Arable/mnist_dist.py \
+--conf spark.dynamicAllocation.enabled=false \
+--conf spark.yarn.maxAppAttempts=1 \
+--conf spark.yarn.executor.memoryOverhead=12288 \
+myfloder/Arable/mnist_spark.py  \
+--images hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/data/pickle/train3/images \
+--labels hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/data/pickle/train3/labels \
+--format pickle \
+--mode retrain \
+--model hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/model_arable \
+--epochs 1 \
+--steps 100000 \
+--acc 0.8 \
+--dropout 0.5 \
+--learning_rate 1e-6 \
+--model_name model.ckpt
+--------------------------------------------------------------------------------------

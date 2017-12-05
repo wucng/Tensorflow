@@ -1,0 +1,66 @@
+inference版提交命名
+
+# 数据转换
+spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--queue default \
+--num-executors 8 \
+--executor-memory 32G \
+--driver-memory 12G \
+--conf spark.dynamicAllocation.enabled=false \
+--conf spark.yarn.maxAppAttempts=1 \
+--jars hdfs://dm01-08-01.tjidc.dcos.com:8020/spark-tensorflow/spark-tensorflow-connector-1.0-SNAPSHOT.jar \
+mnist_data_setup.py \
+--imgPixel 2 \
+--channels 3 \
+--output hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/data2 \
+--format pickle \
+--mode -1  # -1 inference 1 train 0 test
+
+# train（retain）
+spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--queue default \
+--num-executors 8 \
+--executor-memory 32G \
+--driver-memory 12G \
+--py-files TensorFlowOnSpark/tfspark.zip,myfloder/Arable/mnist_dist.py \
+--conf spark.dynamicAllocation.enabled=false \
+--conf spark.yarn.maxAppAttempts=1 \
+--conf spark.yarn.executor.memoryOverhead=12288 \
+myfloder/Arable/mnist_spark.py  \
+--images hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/data_2x2/12/images \
+--labels hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/data_2x2/12/labels \
+--format pickle \
+--mode train \
+--model hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/model_arable \
+--batch_size 500 \
+--epochs 2 \
+--steps 10000000 \
+--acc 0.8 \
+--dropout 0.6 \
+--learning_rate 1e-2 \
+--model_name model.ckpt 
+
+
+# inference
+spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--queue default \
+--num-executors 8 \
+--executor-memory 32G \
+--driver-memory 12G \
+--py-files TensorFlowOnSpark/tfspark.zip,myfloder/inference/mnist_dist.py \
+--conf spark.dynamicAllocation.enabled=false \
+--conf spark.yarn.maxAppAttempts=1 \
+--conf spark.yarn.executor.memoryOverhead=12288 \
+myfloder/inference/mnist_spark.py  \
+--images hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/inference/inference/images \
+--labels hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/inference/inference/labels \
+--format pickle \
+--mode inference \
+--model hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/model_arable \
+--output predictions

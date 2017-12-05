@@ -1,0 +1,23 @@
+# 一次性转换所有影像  tile.log为存放影像文件名
+zip -r mnist.zip tile.log
+hdfs dfs -mkdir mnist
+hdfs dfs -put mnist.zip mnist
+
+spark-submit \
+--master yarn \
+--deploy-mode cluster \
+--queue default \
+--num-executors 45 \
+--executor-memory 2G \
+--driver-memory 12G \
+--conf spark.dynamicAllocation.enabled=false \
+--conf spark.yarn.maxAppAttempts=1 \
+--jars hdfs://dm01-08-01.tjidc.dcos.com:8020/spark-tensorflow/spark-tensorflow-connector-1.0-SNAPSHOT.jar \
+--archives hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/mnist/mnist.zip#mnist \
+mnist_data_setup.py \
+--num-partitions 200 \
+--imgPixel 2 \
+--channels 3 \
+--output hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/inference \
+--format pickle \
+--mode -1
