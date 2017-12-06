@@ -311,11 +311,13 @@ def main(_):
             # batch_xs, batch_ys = mnist.train.next_batch(100)
             batch_xs, batch_ys = next_batch(train_data, 100)
             batch_ys=dense_to_one_hot2(batch_ys,num_class)
-            # _, step = sess.run([train_op, global_step], feed_dict={x: batch_xs, y_: batch_ys,keep:dropout})
-            sess.run([train_op], feed_dict={x: batch_xs, y_: batch_ys, keep: dropout})
+            _, gl_step = sess.run([train_op, global_step], feed_dict={x: batch_xs, y_: batch_ys,keep:dropout})
+            # sess.run([train_op], feed_dict={x: batch_xs, y_: batch_ys, keep: dropout})
             if step % 100 == 0:
                 print("accuracy: %f" % sess.run(accuracy, feed_dict={x: test_data[:,:-1],
                                                                      y_: dense_to_one_hot2(test_data[:,-1],num_class),keep:1.0}))
+                saver.save(sess,logdir,global_step=gl_step)           
+            
             step+=1
 
 if __name__ == "__main__":
