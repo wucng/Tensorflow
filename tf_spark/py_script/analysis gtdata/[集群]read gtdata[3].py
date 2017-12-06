@@ -2,7 +2,7 @@
 
 '''
 --------------集群版----------------
-直接从gtdata上读取图像与对应的掩膜图像，生成图像数据+标签数据  卷积模型
+直接从gtdata上读取图像与对应的掩膜图像，生成图像数据+标签数据
 执行命令：
 spark-submit
 --queue default \
@@ -307,7 +307,7 @@ def main(_):
 
             init_op = tf.global_variables_initializer()
 
-        logdir="hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/mnist_model"
+        logdir="hdfs://dm01-08-01.tjidc.dcos.com:8020/user/root/model_arable2"
         # Create a "Supervisor", which oversees the training process.
         sv = tf.train.Supervisor(is_chief=(FLAGS.task_index == 0),
                                  logdir=logdir,
@@ -334,11 +334,13 @@ def main(_):
             batch_xs, batch_ys = next_batch(train_data, 100)
             batch_ys=dense_to_one_hot2(batch_ys,num_class)
 
-            _, step = sess.run([train_op, global_step], feed_dict={x: batch_xs, y_: batch_ys,keep:dropout})
+            # _, step = sess.run([train_op, global_step], feed_dict={x: batch_xs, y_: batch_ys, keep: dropout})
+            _, _ = sess.run([train_op, global_step], feed_dict={x: batch_xs, y_: batch_ys,keep:dropout})
             # print("Step %d in task %d" % (step, FLAGS.task_index))
             if step % 100 == 0:
                 print("accuracy: %f" % sess.run(accuracy, feed_dict={x: test_data[:,:-1],
                                                                      y_: dense_to_one_hot2(test_data[:,-1],num_class),keep:1.0}))
+            step+=1
 
 if __name__ == "__main__":
     tf.app.run()
