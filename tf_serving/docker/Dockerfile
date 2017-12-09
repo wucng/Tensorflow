@@ -4,14 +4,14 @@ FROM ubuntu:16.04
 MAINTAINER Mr.wu
 
 RUN apt-get update && apt-get upgrade && \
-	apt-get install -y \
-	    build-essential \
+    apt-get install -y \
+	build-essential \
         curl \
         git \
         libfreetype6-dev \
         libpng12-dev \
         libzmq3-dev \
-	    mlocate \
+	mlocate \
         pkg-config \
         python-dev \
         python-numpy \
@@ -24,8 +24,8 @@ RUN apt-get update && apt-get upgrade && \
         openjdk-8-jdk\
         openjdk-8-jre-headless \
         wget && \
-      apt-get clean && \
-      rm -rf /var/lib/apt/lists/*
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 Run echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list
 Run curl https://bazel.build/bazel-release.pub.gpg | apt-key add -
