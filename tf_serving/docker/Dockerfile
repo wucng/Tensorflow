@@ -27,33 +27,33 @@ RUN apt-get update && apt-get upgrade && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-Run echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list
-Run curl https://bazel.build/bazel-release.pub.gpg | apt-key add -
+RUN echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list
+RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add -
 
-Run apt-get install bazel && apt-get upgrade bazel
+RUN apt-get install bazel && apt-get upgrade bazel
 
-Run pip install grpcio
+RUN pip install grpcio
 
-Run apt-get clean &&  rm -rf /var/lib/apt/lists/*
+RUN apt-get clean &&  rm -rf /var/lib/apt/lists/*
 
-Run pip install tensorflow-serving-api
+RUN pip install tensorflow-serving-api
 
-Run apt-get remove tensorflow-model-server
+RUN apt-get remove tensorflow-model-server
 
-Run echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stable tensorflow-model-server tensorflow-model-server-universal" | tee /etc/apt/sources.list.d/tensorflow-serving.list
+RUN echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stable tensorflow-model-server tensorflow-model-server-universal" | tee /etc/apt/sources.list.d/tensorflow-serving.list
 
-Run curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | apt-key add -
+RUN curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | apt-key add -
 
-Run apt-get install tensorflow-model-server
+RUN apt-get install tensorflow-model-server
 
-Run apt-get upgrade tensorflow-model-server
+RUN apt-get upgrade tensorflow-model-server
 
-Run git clone --recurse-submodules https://github.com/tensorflow/serving
-Run cd serving
+RUN git clone --recurse-submodules https://github.com/tensorflow/serving
+RUN cd serving
 
-Run cd tensorflow && ./configure && cd ..
+RUN cd tensorflow && ./configure && cd ..
 
-Run bazel build -c opt tensorflow_serving/...
-Run bazel-bin/tensorflow_serving/model_servers/tensorflow_model_server
+RUN bazel build -c opt tensorflow_serving/...
+RUN bazel-bin/tensorflow_serving/model_servers/tensorflow_model_server
 # 测试
-# Run bazel test -c opt tensorflow_serving/...
+# RUN bazel test -c opt tensorflow_serving/...
