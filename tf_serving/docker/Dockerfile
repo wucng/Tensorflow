@@ -72,7 +72,5 @@ CMD ["/bin/bash"]
 
 # RUN cd tensorflow && ./configure && cd ..
 
-# RUN bazel build -c opt tensorflow_serving/...
-# RUN bazel-bin/tensorflow_serving/model_servers/tensorflow_model_server
 # 测试
 # RUN bazel test -c opt tensorflow_serving/...
