@@ -145,7 +145,7 @@ for key in var_to_shape_map:
 ```
 
 # 3、不加载最后一层的所有变量（随机初始化）
-```
+```python
 #!/usr/bin/python3
 # -*- coding:utf-8 -*-
 
