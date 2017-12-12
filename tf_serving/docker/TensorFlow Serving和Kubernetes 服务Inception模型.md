@@ -32,6 +32,11 @@ $ docker run --name=inception_container -it $USER/tensorflow-serving-devel
 docker build -t tensorflow-serving:v1 .
 git clone --recurse-submodules https://github.com/tensorflow/serving # serving下载到主机上
 docker run -it -v /home/wu/serving:/serving tensorflow-serving:v1 /bin/bash # 使用-v 挂载到容器中
+
+# 或
+docker pull registry.cn-hangzhou.aliyuncs.com/781708249/tensorflow-serving:v1 # 已经配置好的tensorflow serving 从阿里镜像拉下来
+git clone --recurse-submodules https://github.com/tensorflow/serving # serving下载到主机上
+docker run -it -v /home/wu/serving:/serving registry.cn-hangzhou.aliyuncs.com/781708249/tensorflow-serving:v1 /bin/bash # 使用-v 挂载到容器中
 ```
 ## 在容器中克隆，配置和构建TensorFlow服务
 注意：下面的所有bazel构建命令都使用标准-c选项标志。 要进一步优化构建，请参阅[此处](https://tensorflow.google.cn/serving/setup#optimized_build)的说明。
