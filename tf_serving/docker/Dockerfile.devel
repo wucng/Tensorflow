@@ -1,4 +1,14 @@
 # https://github.com/tensorflow/serving/blob/master/tensorflow_serving/tools/docker/Dockerfile.devel
+'''python
+# 使用
+docker build --pull -t $USER/tensorflow-serving-devel -f Dockerfile.devel .
+docker run --name=inception_container -it $USER/tensorflow-serving-devel
+
+# 或 将Dockerfile.devel中的内容保存成[Dockerfile
+docker build -t tensorflow-serving:v1 .
+git clone --recurse-submodules https://github.com/tensorflow/serving # serving下载到主机上
+docker run -it -v /home/wu/serving:/serving tensorflow-serving:v1 /bin/bash # 使用-v 挂载到容器中
+'''
 
 FROM ubuntu:16.04
 
