@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 '''
+读取gtdata/hdfs
 train=1 训练
 train=-1 推理
 '''
