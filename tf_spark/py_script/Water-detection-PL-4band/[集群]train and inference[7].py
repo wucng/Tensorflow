@@ -2,10 +2,12 @@
 
 '''
 A,B 2台机
+A ps:0 B worker:0
 A 执行：python mnist_dist.py --ps_hosts=10.0.100.15:2220 --worker_hosts=10.0.100.16:2221 --job_name="ps" --task_index=0
 B      python mnist_dist.py --ps_hosts=10.0.100.15:2220 --worker_hosts=10.0.100.16:2221 --job_name="worker" --task_index=0
 
 然后再打开2个终端
+B ps:0 A worker:0
 B 执行  python mnist_dist.py --ps_hosts=10.0.100.16:2222 --worker_hosts=10.0.100.15:2223 --job_name="ps" --task_index=0
 A 执行：python mnist_dist.py --ps_hosts=10.0.100.16:2222 --worker_hosts=10.0.100.15:2223 --job_name="worker" --task_index=0
 
