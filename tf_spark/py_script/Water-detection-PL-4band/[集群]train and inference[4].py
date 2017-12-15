@@ -2,7 +2,7 @@
 
 '''
 一台机上同时执行ps与worker
-执行命令：
+打开一个终端执行：
 python mnist_dist.py --ps_hosts=10.0.100.15:2220 --worker_hosts=10.0.100.15:2220 --job_name="local" --task_index=0
 或
 python mnist_dist.py --ps_hosts=10.0.100.15:2220 --worker_hosts=10.0.100.15:2221 --job_name="local" --task_index=0
