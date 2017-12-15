@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 '''
-一台机上同时执行ps与worker
+一台机上同时执行ps与worker 伪集群 相当于 单机版 （其实已经没有 ps 与worker 之分，都集成到local）
 打开一个终端执行：
 python mnist_dist.py --ps_hosts=10.0.100.15:2220 --worker_hosts=10.0.100.15:2220 --job_name="local" --task_index=0
 或
