@@ -4,12 +4,9 @@
 --------------集群版----------------
 train=1 训练
 train=-1 推理
-
 单机测试：
 python mnist_dist.py --ps_hosts=10.0.100.14:2220 --worker_hosts=10.0.100.14:2221 --job_name="ps" --task_index=0
-
 python mnist_dist.py --ps_hosts=10.0.100.14:2220 --worker_hosts=10.0.100.14:2221 --job_name="worker" --task_index=0
-
 
 直接从gtdata上读取图像与对应的掩膜图像，生成图像数据+标签数据 卷积模型
 执行命令：
@@ -126,7 +123,7 @@ def main(_):
 
         if walter_model.train==-1: # inference
             while not sv.should_stop():
-                walter_model.Train_and_inference_model(sess,m).Inference()
+                walter_model.Train_and_inference_model(sess,m).Inference(FLAGS.task_index)
                 break
             sess.close()
             exit()
