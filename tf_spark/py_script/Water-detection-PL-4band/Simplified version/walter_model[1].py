@@ -1,5 +1,8 @@
 # -*- coding: UTF-8 -*-
-
+'''
+train=1 训练
+train=-1 推理
+'''
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
