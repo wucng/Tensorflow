@@ -628,7 +628,7 @@ def main(_):
                         # Run optimization op (backprop) and cost op (to get loss value)
                         print('batch_ys', batch_ys.shape)
                         exit(-1)
-                        _, c, p, gl_step = sess.run([optimizer, cost, pred, global_step],
+                        _, c, p, gl_step = sess.run([optimizer, cost, pred_new, global_step],
                                                     feed_dict={x: batch_xs,
                                                                y: batch_ys,
                                                                keep_prob: dropout})
@@ -769,7 +769,7 @@ def main(_):
                             ori_y = i
                             ori_x = j
 
-                            pred1 = sess.run(pred, feed_dict={x: data, keep_prob: 1.})
+                            pred1 = sess.run(pred_new, feed_dict={x: data, keep_prob: 1.})
                             value_1 = np.argmax(pred1, axis=1)
 
                             # 重新生成掩膜图像，2017.10.11,by xjxf __start
