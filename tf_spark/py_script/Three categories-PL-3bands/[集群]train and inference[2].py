@@ -102,7 +102,7 @@ def main(_):
 
         if Three_model.train==-1: # inference
             while not sv.should_stop():
-                Three_model.Train_and_inference_model(sess,m).Inference(FLAGS.task_index)
+                Three_model.Train_and_inference_model(sess,m).Inference2(FLAGS.task_index)
                 break
             end_time = datetime.datetime.now()
             print("总时间: ", end_time - start_time)
