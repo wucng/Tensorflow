@@ -687,8 +687,9 @@ def main(_):
                 ogr.RegisterAll()
 
                 end=min(FLAGS.end_index,len(img_paths))
-                for dir_name in img_paths[FLAGS.start_index:end]:
-
+                for ix,dir_name in enumerate(img_paths[FLAGS.start_index:end]):
+                    print('时间：',datetime.datetime.now(),"正在处理第",ix,'张')
+                    
                     srcDS = gdal.Open(dir_name, GA_ReadOnly)  # 只读方式打开原始影像
 
                     geoTrans = srcDS.GetGeoTransform()  # 获取地理参考6参数
