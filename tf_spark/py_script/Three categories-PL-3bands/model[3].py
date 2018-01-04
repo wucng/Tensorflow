@@ -7,7 +7,7 @@ train=-1 推理
 对应标签  [400*400,3]
 
 # 执行命名  
-python model.py \
+nohup python model.py \
 --img_size 400 \
 --img_channel 3 \
 --n_class 3 \
@@ -17,7 +17,7 @@ python model.py \
 --dropout 0.8 \
 --train -1 \
 --start_index=0 \
---end_index=3717
+--end_index=3717 &
 '''
 
 from __future__ import absolute_import
