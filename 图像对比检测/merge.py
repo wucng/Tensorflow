@@ -14,7 +14,7 @@ from osgeo.gdalconst import *
 from glob import glob
 import os
 import itertools
-from scipy import ndimage
+# from scipy import ndimage
 import numpy as np
 import sys
 from datetime import datetime
