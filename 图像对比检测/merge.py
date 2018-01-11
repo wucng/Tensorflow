@@ -128,7 +128,9 @@ def merge(file,img_save):
             # 参考：http://www.gdal.org/frmt_gtiff.html
             papszCreateOptions=['COMPRESS=lzw',"BIGTIFF=IF_SAFER"] # BIGTIFF 支持超过4G         
             # target_ds = gdal.GetDriverByName('GTiff').Create(raster_fn, xcount1, ycount1, 1, gdal.GDT_Byte)
-            target_ds = gdal.GetDriverByName('GTiff').Create(raster_fn, int(info_struct[2]), int(info_struct[3]), 1,
+            # target_ds = gdal.GetDriverByName('GTiff').Create(raster_fn, int(info_struct[2]), int(info_struct[3]), 1,
+            #                                                 gdal.GDT_Byte,papszCreateOptions)
+            target_ds = gdal.GetDriverByName('GTiff').Create(raster_fn, int(info_struct[2])+10, int(info_struct[3])+10, 1,
                                                              gdal.GDT_Byte,papszCreateOptions)
             target_ds.SetGeoTransform(info_struct[0])  # 设置掩膜的地理参考
             target_ds.SetProjection(info_struct[1])  # 设置掩膜坐标引用
