@@ -125,8 +125,8 @@ def merge(file,img_save):
 
             raster_fn = img_save + '_mask.tif'
             # papszCreateOptions = ['compress=lzw'] # 压缩
-            papszCreateOptions = 'compress=lzw'# 压缩
-            papszCreateOptions=[papszCreateOptions,"BIGTIFF", "IF_NEEDED"] # BIGTIFF 支持超过4G         
+            # 参考：http://www.gdal.org/frmt_gtiff.html
+            papszCreateOptions=['COMPRESS=lzw',"BIGTIFF=IF_SAFER"] # BIGTIFF 支持超过4G         
             # target_ds = gdal.GetDriverByName('GTiff').Create(raster_fn, xcount1, ycount1, 1, gdal.GDT_Byte)
             target_ds = gdal.GetDriverByName('GTiff').Create(raster_fn, int(info_struct[2]), int(info_struct[3]), 1,
                                                              gdal.GDT_Byte,papszCreateOptions)
