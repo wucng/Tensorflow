@@ -4,13 +4,74 @@
 --------------集群版----------------
 train=1 训练
 train=-1 推理
-单机测试：
-一台机上同时执行ps与worker 伪集群 相当于 单机版 （其实已经没有 ps 与worker 之分，都集成到local）
-打开一个终端执行：
-nohup python mnist_dist.py --ps_hosts=10.0.100.14:2220 --job_name="local" --task_index=0 --start_index=0 --end_index=3717 &
-# -------------------------------#
+
 nohup python mnist_dist.py --ps_hosts=10.0.100.14:2220 --worker_hosts=10.0.100.14:2221 --job_name="ps" --task_index=0 --start_index=0 --end_index=3717 &
 nohup python mnist_dist.py --ps_hosts=10.0.100.14:2220 --worker_hosts=10.0.100.14:2221 --job_name="worker" --task_index=0 --start_index=0 --end_index=3717 &
+
+python mnist_dist.py \
+--ps_hosts=10.0.100.14:2220 \
+--worker_hosts=10.0.100.15:2221 \
+--job_name="ps" \
+--train=1 \
+--task_index=0 \
+--start_index=0 \
+--end_index=1 \
+--image_size=400 \
+--image_channel=3 \
+--epochs=2 \
+--batch_size=2 \
+--display_step=1 \
+--n_class=3 \
+--dropout=0.8 \
+--image_path='" \
+--mask_path="" \
+--logdir=" " \
+--model_name="save_net.ckpt" \
+--in_image_dir="" \
+--in_image_path="" \
+--save_image_path="" 
+
+
+# train
+python mnist_dist.py \
+--ps_hosts=10.0.100.14:2220 \
+--worker_hosts=10.0.100.15:2221 \
+--job_name="ps" \
+--train=1 \
+--task_index=0 \
+--image_size=400 \
+--image_channel=3 \
+--epochs=2 \
+--batch_size=2 \
+--display_step=1 \
+--n_class=3 \
+--dropout=0.8 \
+--image_path='" \
+--mask_path="" \
+--logdir=" " \
+--model_name="save_net.ckpt" \
+
+
+# inference
+python mnist_dist.py \
+--ps_hosts=10.0.100.14:2220 \
+--worker_hosts=10.0.100.15:2221 \
+--job_name="worker" \
+--train=-1 \
+--task_index=0 \
+--start_index=0 \
+--end_index=2 \
+--image_size=400 \
+--image_channel=3 \
+--n_class=3 \
+--logdir=" " \
+--model_name="save_net.ckpt" \
+--in_image_dir="" \
+--in_image_path="" \
+--save_image_path=""
+
+
+
 '''
 
 from __future__ import absolute_import
