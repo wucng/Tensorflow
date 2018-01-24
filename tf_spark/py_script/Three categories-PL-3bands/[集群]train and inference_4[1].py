@@ -19,7 +19,7 @@ python mnist_dist.py \
 --image_size=400 \
 --image_channel=3 \
 --epochs=2 \
---batch_size=2 \
+--batch_size=1 \
 --display_step=1 \
 --n_class=3 \
 --dropout=0.8 \
@@ -42,7 +42,7 @@ python mnist_dist.py \
 --image_size=400 \
 --image_channel=3 \
 --epochs=2 \
---batch_size=2 \
+--batch_size=1 \
 --display_step=1 \
 --n_class=3 \
 --dropout=0.8 \
